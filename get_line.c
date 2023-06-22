@@ -25,20 +25,21 @@ void get_line(FILE *file_ptr)
 			opnum = strtok(NULL, " \t\n"); /* Extract the second string from line */
 			break;
 		}
+
 		if (strcmp(opcode, "pall") == 0) /* opcode is pall */
 		{
 			pall_func(&top);
 			continue;
 		}
+
 		if (opnum == NULL || atoi(opnum) == 0) /* No argument to opcode */
 		{
-			fflush(file_ptr);
 			fprintf(stderr, "L%d: usage: push integer\n", line_number);
 			clean_up(file_ptr, &top, line);
 		}
+
 		if (!search_opcode(opcode, opnum, &top)) /* Unknown Instruction */
 		{
-			fflush(file_ptr);
 			fprintf(stderr, "L%d: unknown instruction %s\n", line_number, opcode);
 			clean_up(file_ptr, &top, line);
 		}
