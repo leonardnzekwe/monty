@@ -3,7 +3,7 @@
 /**
  * search_opcode - search for opcode function
  * @opcode: operation code parameter
- * @opnum: operation number parameter
+ * @opint: operation integer parameter
  * @top: stack top parameter
  * Return: True if opcode found, else False
  */
