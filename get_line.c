@@ -80,3 +80,25 @@ void clean_up(FILE *file_ptr, stack_t **top, char *line)
 	fclose(file_ptr);
 	exit(EXIT_FAILURE);
 }
+
+/**
+ * get_num_nodes - function to get the number of nodes in the stack
+ * @top: stack top parameter
+ * Return: number of elements/ nodes
+ */
+
+int get_num_nodes(stack_t **top)
+{
+	int num_nodes = 0;
+	stack_t *ptr;
+
+	if (*top == NULL)
+		return (0);
+	ptr = *top;
+	while (ptr != NULL)
+	{
+		num_nodes++;
+		ptr = (*ptr).next;
+	}
+	return (num_nodes);
+}

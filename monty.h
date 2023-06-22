@@ -53,7 +53,9 @@ int push_func(stack_t **top, int data);
 int pall_func(stack_t **top, unsigned int line_number);
 int pint_func(stack_t **top, unsigned int line_number);
 int pop_func(stack_t **top, unsigned int line_number);
+int swap_func(stack_t **top, unsigned int line_number);
 void free_stack(stack_t **top);
 void clean_up(FILE *file_ptr, stack_t **top, char *line);
+int get_num_nodes(stack_t **top);
 
 #endif /* MONTY_H */
