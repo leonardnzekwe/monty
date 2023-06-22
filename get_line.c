@@ -31,7 +31,7 @@ void get_line(FILE *file_ptr)
 			pall_func(&top);
 			continue;
 		}
-		if ((opnum != NULL) || (sizeof(opnum) == sizeof(int)))
+		if ((opnum != NULL) && (atoi(opnum) >= 0))
 			opint = atoi(opnum);
 		else /* No argument to opcode */
 		{
