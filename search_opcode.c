@@ -18,7 +18,7 @@ bool search_opcode(char *opcode, stack_t **top, unsigned int line_number)
 		{"add", add_func}, {"nop", nop_func},
 		{"nop", nop_func}, {"sub", sub_func},
 		{"div", div_func}, {"mul", mul_func},
-		{NULL, NULL}
+		{"mod", mod_func}, {NULL, NULL}
 	};
 
 	j = 0;
