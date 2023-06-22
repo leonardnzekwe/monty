@@ -29,7 +29,7 @@ void get_line(FILE *file_ptr)
 		}
 		if (strcmp(opcode, "push") == 0) /* opcode is push */
 		{
-			if ((opnum != NULL) && (atoi(opnum) != 0))
+			if ((opnum != NULL) && (sizeof(atoi(opnum)) == sizeof(int)))
 				opint = atoi(opnum);
 			else /* No argument to push */
 			{
