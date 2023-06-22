@@ -12,17 +12,16 @@ void push_func(stack_t **top, unsigned int data)
 	int n;
 
 	new = malloc(sizeof(stack_t));
-	if (new == NULL)
-		exit(EXIT_FAILURE);
+	if (new != NULL)
+	{
+		n = (int)data;
+		new->prev = NULL;
+		new->n = n;
+		new->next = NULL;
 
-	n = (int)data;
-
-	new->prev = NULL;
-	new->n = n;
-	new->next = NULL;
-
-	new->next = *top;
-	if (*top != NULL)
-		(**top).prev = new;
-	*top = new;
+		new->next = *top;
+		if (*top != NULL)
+			(**top).prev = new;
+		*top = new;
+	}
 }
