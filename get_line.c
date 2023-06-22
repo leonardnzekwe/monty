@@ -35,7 +35,7 @@ void get_line(FILE *file_ptr)
 			opint = atoi(opnum);
 		else /* No argument to opcode */
 		{
-			fprintf(stderr, "L%d: usage: push integer\n", line_number);
+			fprintf(stderr, "L %d: usage: push integer\n", line_number);
 			clean_up(file_ptr, &top, line);
 		}
 		if (!search_opcode(opcode, opint, &top)) /* Unknown Instruction */
