@@ -56,6 +56,7 @@ int pop_func(stack_t **top, unsigned int line_number);
 int swap_func(stack_t **top, unsigned int line_number);
 int add_func(stack_t **top, unsigned int line_number);
 int nop_func(stack_t **top, unsigned int line_number);
+int sub_func(stack_t **top, unsigned int line_number);
 void free_stack(stack_t **top);
 void clean_up(FILE *file_ptr, stack_t **top, char *line);
 int get_num_nodes(stack_t **top);

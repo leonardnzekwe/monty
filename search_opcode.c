@@ -13,12 +13,10 @@ bool search_opcode(char *opcode, stack_t **top, unsigned int line_number)
 	int j;
 	/* struct two dimensional array */
 	instruction_t intruct_opcode[] = {
-		{"pall", pall_func},
-		{"pint", pint_func},
-		{"pop", pop_func},
-		{"swap", swap_func},
-		{"add", add_func},
-		{"nop", nop_func},
+		{"pall", pall_func}, {"pint", pint_func},
+		{"pop", pop_func}, {"swap", swap_func},
+		{"add", add_func}, {"nop", nop_func},
+		{"nop", nop_func}, {"sub", sub_func},
 		{NULL, NULL}
 	};
 
