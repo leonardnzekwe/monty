@@ -9,16 +9,14 @@ void get_line(FILE *file_ptr)
 {
 	stack_t *top = NULL; /* Global variable Definition */
 	char *line = NULL;
-	unsigned int line_number = 0;
 	size_t line_length = 0;
 	ssize_t read = 0;
-	char *opcode = NULL;
-	char *opnum = NULL;
+	char *opcode, *opnum;
 	int opint;
+	unsigned int line_number = 0;
 
 	while ((read = getline(&line, &line_length, file_ptr)) != -1)
-	{
-		line_number++;
+	{ line_number++;
 		if (strcmp(line, "\n") == 0)
 			continue;
 		opcode = strtok(line, " \t\n"); /* Extract the first string from line */
@@ -41,11 +39,13 @@ void get_line(FILE *file_ptr)
 			continue;
 		}
 		if (!search_opcode(opcode, &top, line_number)) /* Unknown Instruction */
-		{
 			clean_up(file_ptr, &top, line);
-		}
 	}
-	free_stack(&top);
+	if (read == -1)
+	{
+		fprintf(stderr, "Error: malloc failed\n");
+		clean_up(file_ptr, &top, line);
+	} free_stack(&top);
 	free(line);
 }
 
