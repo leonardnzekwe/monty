@@ -21,5 +21,7 @@ int pall_func(
 			ptr = (*ptr).next;
 		}
 	}
+	else
+		return (-1);
 	return (0);
 }
