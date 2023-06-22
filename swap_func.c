@@ -1,7 +1,7 @@
 #include "monty.h"
 
 /**
- * swap_func - function to remove the top of the stack
+ * swap_func - function to swap the stack top value
  * @top: stack top
  * @line_number: file line number
  * Return: 0 if successful else -1
