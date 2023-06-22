@@ -4,9 +4,10 @@
  * push_func - function that pushes node to the stack
  * @top: stack top
  * @data: stack data
+ * Return: 0 if successful else -1
 */
 
-void push_func(stack_t **top, int data)
+int push_func(stack_t **top, int data)
 {
 	stack_t *new;
 
@@ -22,4 +23,7 @@ void push_func(stack_t **top, int data)
 			(**top).prev = new;
 		*top = new;
 	}
+	else
+		return (-1);
+	return (0);
 }

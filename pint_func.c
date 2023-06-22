@@ -4,9 +4,10 @@
  * pint_func - function that prints the top stack data
  * @top: global stack variable
  * @line_number: file line number
+ * Return: 0 if successful else -1
 */
 
-void pint_func(stack_t **top, unsigned int line_number)
+int pint_func(stack_t **top, unsigned int line_number)
 {
 	stack_t *ptr;
 
@@ -22,5 +23,7 @@ void pint_func(stack_t **top, unsigned int line_number)
 	else
 	{
 		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
+		return (-1);
 	}
+	return (0);
 }

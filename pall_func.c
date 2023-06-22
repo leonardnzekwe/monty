@@ -4,9 +4,10 @@
  * pall_func - function that prints the stack data
  * @top: global stack variable
  * @line_number: file line number
+ * Return: 0 if successful else do nothing
 */
 
-void pall_func(
+int pall_func(
 	stack_t **top, __attribute__ ((unused)) unsigned int line_number)
 {
 	stack_t *ptr;
@@ -20,4 +21,5 @@ void pall_func(
 			ptr = (*ptr).next;
 		}
 	}
+	return (0);
 }

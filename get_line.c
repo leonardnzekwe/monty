@@ -36,12 +36,12 @@ void get_line(FILE *file_ptr)
 				fprintf(stderr, "L%d: usage: push integer\n", line_number);
 				clean_up(file_ptr, &top, line);
 			}
-			push_func(&top, opint);
+			if (push_func(&top, opint) == -1)
+				clean_up(file_ptr, &top, line);
 			continue;
 		}
 		if (!search_opcode(opcode, &top, line_number)) /* Unknown Instruction */
 		{
-			fprintf(stderr, "L%d: unknown instruction %s\n", line_number, opcode);
 			clean_up(file_ptr, &top, line);
 		}
 	}

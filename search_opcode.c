@@ -15,6 +15,7 @@ bool search_opcode(char *opcode, stack_t **top, unsigned int line_number)
 	instruction_t intruct_opcode[] = {
 		{"pall", pall_func},
 		{"pint", pint_func},
+		{"pop", pop_func},
 		{NULL, NULL}
 	};
 
@@ -23,10 +24,12 @@ bool search_opcode(char *opcode, stack_t **top, unsigned int line_number)
 	{
 		if (strcmp(intruct_opcode[j].opcode, opcode) == 0) /* valid opcode */
 		{
-			intruct_opcode[j].f(top, line_number);
+			if (intruct_opcode[j].f(top, line_number) == -1)
+				return (false);
 			return (true);
 		}
 		j = j + 1;
 	}
+	fprintf(stderr, "L%d: unknown instruction %s\n", line_number, opcode);
 	return (false); /* invalid opcode */
 }

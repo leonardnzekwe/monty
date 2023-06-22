@@ -40,7 +40,7 @@ typedef struct stack_s
 typedef struct instruction_s
 {
 	char *opcode;
-	void (*f)(stack_t **stack, unsigned int line_number);
+	int (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
 /* GLobal Variable Declaration */
@@ -49,9 +49,10 @@ extern stack_t *top;
 /* Function Prototypes */
 void get_line(FILE *file_ptr);
 bool search_opcode(char *opcode, stack_t **top, unsigned int line_number);
-void push_func(stack_t **top, int data);
-void pall_func(stack_t **top, unsigned int line_number);
-void pint_func(stack_t **top, unsigned int line_number);
+int push_func(stack_t **top, int data);
+int pall_func(stack_t **top, unsigned int line_number);
+int pint_func(stack_t **top, unsigned int line_number);
+int pop_func(stack_t **top, unsigned int line_number);
 void free_stack(stack_t **top);
 void clean_up(FILE *file_ptr, stack_t **top, char *line);
 
