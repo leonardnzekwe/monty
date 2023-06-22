@@ -10,6 +10,7 @@
 #include <fcntl.h>
 #include <string.h>
 #include <stdbool.h>
+#include <ctype.h>
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -55,7 +56,6 @@ int pint_func(stack_t **top, unsigned int line_number);
 int pop_func(stack_t **top, unsigned int line_number);
 int swap_func(stack_t **top, unsigned int line_number);
 int add_func(stack_t **top, unsigned int line_number);
-int nop_func(stack_t **top, unsigned int line_number);
 int sub_func(stack_t **top, unsigned int line_number);
 int div_func(stack_t **top, unsigned int line_number);
 int mul_func(stack_t **top, unsigned int line_number);
@@ -63,5 +63,8 @@ int mod_func(stack_t **top, unsigned int line_number);
 void free_stack(stack_t **top);
 void clean_up(FILE *file_ptr, stack_t **top, char *line);
 int get_num_nodes(stack_t **top);
+int is_valid_number(const char *str);
+void stack_push(stack_t **top, FILE *file_ptr, char *line,
+char *opnum, int opint, unsigned int line_number);
 
 #endif /* MONTY_H */

@@ -11,7 +11,7 @@ void get_line(FILE *file_ptr)
 	char *line = NULL;
 	size_t line_length = 0;
 	char *opcode, *opnum;
-	int opint;
+	int opint = 0;
 	unsigned int line_number = 0;
 
 	while (getline(&line, &line_length, file_ptr) != -1)
@@ -25,17 +25,11 @@ void get_line(FILE *file_ptr)
 			opnum = strtok(NULL, " \t\n"); /* Extract the second string from line */
 			break;
 		}
+		if (strcmp(opcode, "nop") == 0) /* opcode is nop, nop does nothing */
+			continue;
 		if (strcmp(opcode, "push") == 0) /* opcode is push */
 		{
-			if (opnum != NULL)
-				opint = atoi(opnum);
-			else /* No argument to push */
-			{
-				fprintf(stderr, "L%d: usage: push integer\n", line_number);
-				clean_up(file_ptr, &top, line);
-			}
-			if (push_func(&top, opint) == -1)
-				clean_up(file_ptr, &top, line);
+			stack_push(&top, file_ptr, line, opnum, opint, line_number);
 			continue;
 		}
 		if (!search_opcode(opcode, &top, line_number)) /* Unknown Instruction */
@@ -50,55 +44,32 @@ void get_line(FILE *file_ptr)
 }
 
 /**
- * free_stack - function to free the stack
- * @top: stack to be freed
- */
-
-void free_stack(stack_t **top)
-{
-	stack_t *ptr;
-
-	while (*top != NULL)
-	{
-		ptr = *top;
-		*top = (**top).next;
-		free(ptr);
-	}
-}
-
-/**
- * clean_up - helper function to get_line()
- * For cleaning up, in failure scenarios
+ * stack_push - function that handles push opcode
+ * @top: stack top parameter
  * @file_ptr: file pointer parameter
- * @top: stack top parameter
- * @line: file line paramter
-*/
-void clean_up(FILE *file_ptr, stack_t **top, char *line)
-{
-	free_stack(top);
-	free(line);
-	fclose(file_ptr);
-	exit(EXIT_FAILURE);
-}
-
-/**
- * get_num_nodes - function to get the number of nodes in the stack
- * @top: stack top parameter
- * Return: number of elements/ nodes
+ * @line: file line parameter
+ * @opnum: opcode number parameter
+ * @opint: opcode integer parameter
+ * @line_number: file line number
  */
 
-int get_num_nodes(stack_t **top)
+void stack_push(stack_t **top, FILE *file_ptr, char *line,
+char *opnum, int opint, unsigned int line_number)
 {
-	int num_nodes = 0;
-	stack_t *ptr;
-
-	if (*top == NULL)
-		return (0);
-	ptr = *top;
-	while (ptr != NULL)
+	if (opnum != NULL)
 	{
-		num_nodes++;
-		ptr = (*ptr).next;
+		if (!is_valid_number(opnum))
+		{
+			fprintf(stderr, "L%d: usage: push integer\n", line_number);
+			clean_up(file_ptr, top, line);
+		}
+		opint = atoi(opnum);
 	}
-	return (num_nodes);
+	else /* No argument to push */
+	{
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		clean_up(file_ptr, top, line);
+	}
+	if (push_func(top, opint) == -1)
+		clean_up(file_ptr, top, line);
 }
