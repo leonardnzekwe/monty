@@ -34,7 +34,7 @@ void get_line(FILE *file_ptr)
 
 		if (opnum == NULL) /* No argument to opcode */
 		{
-			fprintf(stderr, "L %d: usage: push integer\n", line_number);
+			fprintf(stderr, "L%d: usage: push integer\n", line_number);
 			clean_up(file_ptr, &top, line);
 		}
 
