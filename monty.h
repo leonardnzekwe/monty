@@ -1,6 +1,16 @@
 #ifndef MONTY_H
 #define MONTY_H
 
+/* Macros */
+#define _GNU_SOURCE
+
+/* Header Files */
+#include <stdio.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <string.h>
+#include <stdbool.h>
+
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -33,6 +43,15 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+/* GLobal Variable Declaration */
+extern stack_t *top;
+
 /* Function Prototypes */
+void get_line(FILE *file_ptr);
+bool search_opcode(char *opcode, char *opnum, stack_t **top);
+void push_func(stack_t **top, unsigned int data);
+void pall_func(stack_t **top);
+void free_stack(stack_t **top);
+void clean_up(FILE *file_ptr, stack_t **top, char *line);
 
 #endif /* MONTY_H */
