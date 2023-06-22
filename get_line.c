@@ -40,7 +40,7 @@ void get_line(FILE *file_ptr)
 
 		if (!search_opcode(opcode, opnum, &top)) /* Unknown Instruction */
 		{
-			fprintf(stderr, "L %d: unknown instruction %s\n", line_number, opcode);
+			fprintf(stderr, "L%d: unknown instruction %s\n", line_number, opcode);
 			clean_up(file_ptr, &top, line);
 		}
 		line_number++;
