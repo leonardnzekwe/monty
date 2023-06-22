@@ -1,7 +1,8 @@
 #include "monty.h"
 
 /**
- * add_func - function to remove the top of the stack
+ * add_func - function to add topmost two values of the stack
+ * Afterwhich it removes the top node of the stack
  * @top: stack top
  * @line_number: file line number
  * Return: 0 if successful else -1

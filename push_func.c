@@ -24,6 +24,9 @@ int push_func(stack_t **top, int data)
 		*top = new;
 	}
 	else
+	{
+		fprintf(stderr, "Error: malloc failed\n");
 		return (-1);
+	}
 	return (0);
 }
