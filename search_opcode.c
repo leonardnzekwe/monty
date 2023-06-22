@@ -8,10 +8,10 @@
  * Return: True if opcode found, else False
  */
 
-bool search_opcode(char *opcode, char *opnum, stack_t **top)
+bool search_opcode(char *opcode, int opint, stack_t **top)
 {
 	int j;
-	unsigned int opint;
+	unsigned int op_u_int;
 
 	/* struct two dimensional array */
 	instruction_t intruct_opcode[] = {
@@ -19,15 +19,13 @@ bool search_opcode(char *opcode, char *opnum, stack_t **top)
 		{NULL, NULL}
 	};
 
-	if (opnum != NULL)
-		opint = atoi(opnum);
-
+	op_u_int = (unsigned int)opint;
 	j = 0;
 	while (intruct_opcode[j].opcode != NULL)
 	{
 		if (strcmp(intruct_opcode[j].opcode, opcode) == 0) /* valid opcode */
 		{
-			intruct_opcode[j].f(top, opint);
+			intruct_opcode[j].f(top, op_u_int);
 			return (true);
 		}
 		j = j + 1;

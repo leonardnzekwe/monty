@@ -14,6 +14,7 @@ void get_line(FILE *file_ptr)
 	ssize_t read = 0;
 	char *opcode = NULL;
 	char *opnum = NULL;
+	int opint;
 
 	while ((read = getline(&line, &line_length, file_ptr)) != -1)
 	{
@@ -32,13 +33,16 @@ void get_line(FILE *file_ptr)
 			continue;
 		}
 
-		if (opnum == NULL) /* No argument to opcode */
+		if (opnum != NULL || atoi(opnum) != 0)
+			opint = atoi(opnum);
+		else /* No argument to opcode */
 		{
 			fprintf(stderr, "L%d: usage: push integer\n", line_number);
 			clean_up(file_ptr, &top, line);
+			
 		}
 
-		if (!search_opcode(opcode, opnum, &top)) /* Unknown Instruction */
+		if (!search_opcode(opcode, opint, &top)) /* Unknown Instruction */
 		{
 			fprintf(stderr, "L%d: unknown instruction %s\n", line_number, opcode);
 			clean_up(file_ptr, &top, line);
