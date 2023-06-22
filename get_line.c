@@ -9,7 +9,7 @@ void get_line(FILE *file_ptr)
 {
 	stack_t *top = NULL; /* Global variable Definition */
 	char *line = NULL;
-	unsigned int line_number = 1;
+	unsigned int line_number = 0;
 	size_t line_length = 0;
 	ssize_t read = 0;
 	char *opcode = NULL;
@@ -18,6 +18,7 @@ void get_line(FILE *file_ptr)
 
 	while ((read = getline(&line, &line_length, file_ptr)) != -1)
 	{
+		line_number++;
 		if (strcmp(line, "\n") == 0)
 			continue;
 		opcode = strtok(line, " \t\n"); /* Extract the first string from line */
@@ -26,24 +27,23 @@ void get_line(FILE *file_ptr)
 			opnum = strtok(NULL, " \t\n"); /* Extract the second string from line */
 			break;
 		}
-		if (strcmp(opcode, "pall") == 0) /* opcode is pall */
+		if (strcmp(opcode, "push") == 0) /* opcode is push */
 		{
-			pall_func(&top);
+			if ((opnum != NULL) && (atoi(opnum) >= 0))
+				opint = atoi(opnum);
+			else /* No argument to push */
+			{
+				fprintf(stderr, "L%d: usage: push integer\n", line_number);
+				clean_up(file_ptr, &top, line);
+			}
+			push_func(&top, opint);
 			continue;
 		}
-		if ((opnum != NULL) && (atoi(opnum) >= 0))
-			opint = atoi(opnum);
-		else /* No argument to opcode */
-		{
-			fprintf(stderr, "L%d:\nusage: push integer\n", line_number);
-			clean_up(file_ptr, &top, line);
-		}
-		if (!search_opcode(opcode, opint, &top)) /* Unknown Instruction */
+		if (!search_opcode(opcode, &top, line_number)) /* Unknown Instruction */
 		{
 			fprintf(stderr, "L%d: unknown instruction %s\n", line_number, opcode);
 			clean_up(file_ptr, &top, line);
 		}
-		line_number++;
 	}
 	free_stack(&top);
 	free(line);

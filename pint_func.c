@@ -1,13 +1,12 @@
 #include "monty.h"
 
 /**
- * pall_func - function that prints the stack data
+ * pint_func - function that prints the top stack data
  * @top: global stack variable
  * @line_number: file line number
 */
 
-void pall_func(
-	stack_t **top, __attribute__ ((unused)) unsigned int line_number)
+void pint_func(stack_t **top, unsigned int line_number)
 {
 	stack_t *ptr;
 
@@ -17,7 +16,11 @@ void pall_func(
 		while (ptr != NULL)
 		{
 			printf("%d\n", (*ptr).n);
-			ptr = (*ptr).next;
+			break;
 		}
+	}
+	else
+	{
+		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
 	}
 }

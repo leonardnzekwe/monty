@@ -6,17 +6,15 @@
  * @data: stack data
 */
 
-void push_func(stack_t **top, unsigned int data)
+void push_func(stack_t **top, int data)
 {
 	stack_t *new;
-	int n;
 
 	new = malloc(sizeof(stack_t));
 	if (new != NULL)
 	{
-		n = (int)data;
 		new->prev = NULL;
-		new->n = n;
+		new->n = data;
 		new->next = NULL;
 
 		new->next = *top;

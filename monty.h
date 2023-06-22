@@ -48,9 +48,10 @@ extern stack_t *top;
 
 /* Function Prototypes */
 void get_line(FILE *file_ptr);
-bool search_opcode(char *opcode, int opnum, stack_t **top);
-void push_func(stack_t **top, unsigned int data);
-void pall_func(stack_t **top);
+bool search_opcode(char *opcode, stack_t **top, unsigned int line_number);
+void push_func(stack_t **top, int data);
+void pall_func(stack_t **top, unsigned int line_number);
+void pint_func(stack_t **top, unsigned int line_number);
 void free_stack(stack_t **top);
 void clean_up(FILE *file_ptr, stack_t **top, char *line);
 
