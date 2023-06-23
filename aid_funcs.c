@@ -1,6 +1,46 @@
 #include "monty.h"
 
 /**
+ * push_end_func - function that pushes node to the end of the stack
+ * @top: stack top
+ * @data: stack data
+ * Return: 0 if successful else -1
+*/
+
+int push_end_func(stack_t **top, int data)
+{
+	stack_t *new;
+	stack_t *ptr;
+
+	new = malloc(sizeof(stack_t));
+	if (new != NULL)
+	{
+		new->prev = NULL;
+		new->n = data;
+		new->next = NULL;
+
+		if (*top == NULL)
+			*top = new;
+		else
+		{
+			ptr = *top;
+			while (ptr->next != NULL)
+			{
+				ptr = ptr->next;
+			}
+			ptr->next = new;
+			new->prev = ptr;
+		}
+	}
+	else
+	{
+		fprintf(stderr, "Error: malloc failed\n");
+		return (-1);
+	}
+	return (0);
+}
+
+/**
  * get_num_nodes - function to get the number of nodes in the stack
  * @top: stack top parameter
  * Return: number of elements/ nodes
