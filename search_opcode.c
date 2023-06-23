@@ -122,9 +122,10 @@ int rotl_func(stack_t **top, unsigned int line_number)
 
 	ptr = *top;
 	top_value = ptr->n;
-	pop_func(top, line_number);
-	push_end_func(top, top_value);
-
+	if (pop_func(top, line_number) == -1)
+		return (-1);
+	if (push_end_func(top, top_value) == -1)
+		return (-1);
 	return (0);
 }
 
