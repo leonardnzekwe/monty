@@ -83,12 +83,20 @@ int rotl_func(stack_t **top, unsigned int line_number)
 	stack_t *ptr;
 	int top_value;
 
-	ptr = *top;
-	top_value = ptr->n;
-	if (pop_func(top, line_number) == -1)
+	if (*top != NULL)
+	{
+		ptr = *top;
+		top_value = ptr->n;
+		if (pop_func(top, line_number) == -1)
+			return (-1);
+		if (push_end_func(top, top_value) == -1)
+			return (-1);
+	}
+	else
+	{
+		fprintf(stderr, "L%d: can't rotl, stack empty\n", line_number);
 		return (-1);
-	if (push_end_func(top, top_value) == -1)
-		return (-1);
+	}
 	return (0);
 }
 
@@ -100,23 +108,28 @@ int rotl_func(stack_t **top, unsigned int line_number)
  * Return: 0 if successful else -1
  */
 
-int rotr_func(
-	stack_t **top, __attribute__ ((unused)) unsigned int line_number)
+int rotr_func(stack_t **top, unsigned int line_number)
 {
 	stack_t *ptr;
-	int top_value;
 	int bottom_value;
 
-	ptr = *top;
-	top_value = ptr->n;
-	while (ptr->next != NULL)
+	if (*top != NULL)
 	{
-		ptr = ptr->next;
+		ptr = *top;
+		while (ptr->next != NULL)
+		{
+			ptr = ptr->next;
+		}
+		bottom_value = ptr->n;
+		if (push_func(top, bottom_value) == -1)
+			return (-1);
+		if (pop_end_func(top, line_number) == -1)
+			return (-1);
 	}
-	bottom_value = ptr->n;
-	ptr->n = top_value;
-	ptr = *top;
-	ptr->n = bottom_value;
-
+	else
+	{
+		fprintf(stderr, "L%d: can't rotr, stack empty\n", line_number);
+		return (-1);
+	}
 	return (0);
 }

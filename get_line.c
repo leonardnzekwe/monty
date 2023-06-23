@@ -80,30 +80,38 @@ char *opnum, int opint, unsigned int line_number)
 }
 
 /**
- * trim_white_space - function that trims
- * leading and trailing white spaces
- * @str: string to trim
- * Return: trimmed string
+ * search_opcode - search for opcode function
+ * @opcode: operation code parameter
+ * @top: stack top parameter
+ * @line_number: file line number
+ * Return: True if opcode found, else False
  */
 
-char *trim_white_space(char *str)
+bool search_opcode(char *opcode, stack_t **top, unsigned int line_number)
 {
-	char *end;
+	int j;
+	/* struct two dimensional array */
+	instruction_t intruct_opcode[] = {
+		{"pall", pall_func}, {"pint", pint_func},
+		{"pop", pop_func}, {"swap", swap_func},
+		{"add", add_func}, {"sub", sub_func},
+		{"div", div_func}, {"mul", mul_func},
+		{"mod", mod_func}, {"pchar", pchar_func},
+		{"pstr", pstr_func}, {"rotl", rotl_func},
+		{"rotr", rotr_func}, {NULL, NULL}
+	};
 
-	/* Trim leading spaces */
-	while (isspace((unsigned char)*str))
-		str++;
-
-	if (*str == '\0')  /* Line contains only spaces */
-		return (str);
-
-	/* Trim trailing spaces */
-	end = str + strlen(str) - 1;
-	while (end > str && isspace((unsigned char)*end))
-		end--;
-
-	/* Null-terminate the trimmed line */
-	*(end + 1) = '\0';
-
-	return (str);
+	j = 0;
+	while (intruct_opcode[j].opcode != NULL)
+	{
+		if (strcmp(intruct_opcode[j].opcode, opcode) == 0) /* valid opcode */
+		{
+			if (intruct_opcode[j].f(top, line_number) == -1)
+				return (false);
+			return (true);
+		}
+		j = j + 1;
+	}
+	fprintf(stderr, "L%d: unknown instruction %s\n", line_number, opcode);
+	return (false); /* invalid opcode */
 }

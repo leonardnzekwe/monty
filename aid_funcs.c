@@ -1,46 +1,6 @@
 #include "monty.h"
 
 /**
- * push_end_func - function that pushes node to the end of the stack
- * @top: stack top
- * @data: stack data
- * Return: 0 if successful else -1
-*/
-
-int push_end_func(stack_t **top, int data)
-{
-	stack_t *new;
-	stack_t *ptr;
-
-	new = malloc(sizeof(stack_t));
-	if (new != NULL)
-	{
-		new->prev = NULL;
-		new->n = data;
-		new->next = NULL;
-
-		if (*top == NULL)
-			*top = new;
-		else
-		{
-			ptr = *top;
-			while (ptr->next != NULL)
-			{
-				ptr = ptr->next;
-			}
-			ptr->next = new;
-			new->prev = ptr;
-		}
-	}
-	else
-	{
-		fprintf(stderr, "Error: malloc failed\n");
-		return (-1);
-	}
-	return (0);
-}
-
-/**
  * get_num_nodes - function to get the number of nodes in the stack
  * @top: stack top parameter
  * Return: number of elements/ nodes
@@ -87,6 +47,35 @@ int is_valid_number(const char *str)
 			return (0);
 	}
 	return (1);
+}
+
+/**
+ * trim_white_space - function that trims
+ * leading and trailing white spaces
+ * @str: string to trim
+ * Return: trimmed string
+ */
+
+char *trim_white_space(char *str)
+{
+	char *end;
+
+	/* Trim leading spaces */
+	while (isspace((unsigned char)*str))
+		str++;
+
+	if (*str == '\0')  /* Line contains only spaces */
+		return (str);
+
+	/* Trim trailing spaces */
+	end = str + strlen(str) - 1;
+	while (end > str && isspace((unsigned char)*end))
+		end--;
+
+	/* Null-terminate the trimmed line */
+	*(end + 1) = '\0';
+
+	return (str);
 }
 
 /**
