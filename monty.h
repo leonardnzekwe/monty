@@ -71,5 +71,6 @@ int get_num_nodes(stack_t **top);
 int is_valid_number(const char *str);
 void stack_push(stack_t **top, FILE *file_ptr, char *line,
 char *opnum, int opint, unsigned int line_number);
+char *trim_white_space(char *str);
 
 #endif /* MONTY_H */

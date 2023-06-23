@@ -10,19 +10,23 @@ void get_line(FILE *file_ptr)
 	stack_t *top = NULL; /* Global variable Definition */
 	char *line = NULL;
 	size_t line_length = 0;
-	char *opcode, *opnum;
+	char *opcode, *opnum, *trimmed_line;
 	int opint = 0;
 	unsigned int line_number = 0;
 
 	while (getline(&line, &line_length, file_ptr) != -1)
 	{
 		line_number++;
-		if (strcmp(line, "\n") == 0)
+		/* Remove leading and trailing spaces from the line */
+		trimmed_line = trim_white_space(line);
+		if (strlen(trimmed_line) == 0)
+			continue;  /* Skip blank lines */
+		if (strcmp(trimmed_line, "\n") == 0)
 			continue;
-		opcode = strtok(line, " \t\n"); /* Extract the first string from line */
+		opcode = strtok(trimmed_line, " \t\n"); /* Extract the first str from line */
 		while (opcode != NULL)
 		{
-			opnum = strtok(NULL, " \t\n"); /* Extract the second string from line */
+			opnum = strtok(NULL, " \t\n"); /* Extract the second str from line */
 			break;
 		}
 		/* opcode is nop, nop does nothing OR line is a comment, #*/
@@ -73,4 +77,33 @@ char *opnum, int opint, unsigned int line_number)
 	}
 	if (push_func(top, opint) == -1)
 		clean_up(file_ptr, top, line);
+}
+
+/**
+ * trim_white_space - function that trims
+ * leading and trailing white spaces
+ * @str: string to trim
+ * Return: trimmed string
+ */
+
+char *trim_white_space(char *str)
+{
+	char *end;
+
+	/* Trim leading spaces */
+	while (isspace((unsigned char)*str))
+		str++;
+
+	if (*str == '\0')  /* Line contains only spaces */
+		return (str);
+
+	/* Trim trailing spaces */
+	end = str + strlen(str) - 1;
+	while (end > str && isspace((unsigned char)*end))
+		end--;
+
+	/* Null-terminate the trimmed line */
+	*(end + 1) = '\0';
+
+	return (str);
 }
