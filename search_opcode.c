@@ -18,7 +18,8 @@ bool search_opcode(char *opcode, stack_t **top, unsigned int line_number)
 		{"add", add_func}, {"sub", sub_func},
 		{"div", div_func}, {"mul", mul_func},
 		{"mod", mod_func}, {"pchar", pchar_func},
-		{"pstr", pstr_func}, {NULL, NULL}
+		{"pstr", pstr_func}, {"rotl", rotl_func},
+		{NULL, NULL}
 	};
 
 	j = 0;
@@ -102,5 +103,72 @@ int pstr_func(
 	}
 	else
 		printf("\n");
+	return (0);
+}
+
+/**
+ * rotl_func - function rotates the stack to the top
+ * The top element of the stack becomes the last one
+ * And the second top element of the stack becomes the first one
+ * @top: stack top
+ * @line_number: file line number
+ * Return: 0 if successful else -1
+ */
+
+int rotl_func(
+	stack_t **top, __attribute__ ((unused)) unsigned int line_number)
+{
+	stack_t *ptr;
+	int top_value;
+
+	ptr = *top;
+	top_value = ptr->n;
+	while (ptr->next != NULL)
+	{
+		ptr = ptr->next;
+	}
+	pop_func(top, line_number);
+	push_end_func(top, top_value);
+
+	return (0);
+}
+
+/**
+ * push_end_func - function that pushes node to the end of the stack
+ * @top: stack top
+ * @data: stack data
+ * Return: 0 if successful else -1
+*/
+
+int push_end_func(stack_t **top, int data)
+{
+	stack_t *new;
+	stack_t *ptr;
+
+	new = malloc(sizeof(stack_t));
+	if (new != NULL)
+	{
+		new->prev = NULL;
+		new->n = data;
+		new->next = NULL;
+
+		if (*top == NULL)
+			*top = new;
+		else
+		{
+			ptr = *top;
+			while (ptr->next != NULL)
+			{
+				ptr = ptr->next;
+			}
+			ptr->next = new;
+			new->prev = ptr;
+		}
+	}
+	else
+	{
+		fprintf(stderr, "Error: malloc failed\n");
+		return (-1);
+	}
 	return (0);
 }
