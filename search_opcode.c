@@ -115,18 +115,13 @@ int pstr_func(
  * Return: 0 if successful else -1
  */
 
-int rotl_func(
-	stack_t **top, __attribute__ ((unused)) unsigned int line_number)
+int rotl_func(stack_t **top, unsigned int line_number)
 {
 	stack_t *ptr;
 	int top_value;
 
 	ptr = *top;
 	top_value = ptr->n;
-	while (ptr->next != NULL)
-	{
-		ptr = ptr->next;
-	}
 	pop_func(top, line_number);
 	push_end_func(top, top_value);
 
