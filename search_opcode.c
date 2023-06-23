@@ -18,7 +18,7 @@ bool search_opcode(char *opcode, stack_t **top, unsigned int line_number)
 		{"add", add_func}, {"sub", sub_func},
 		{"div", div_func}, {"mul", mul_func},
 		{"mod", mod_func}, {"pchar", pchar_func},
-		{NULL, NULL}
+		{"pstr", pstr_func}, {NULL, NULL}
 	};
 
 	j = 0;
@@ -68,5 +68,39 @@ int pchar_func(stack_t **top, unsigned int line_number)
 		fprintf(stderr, "L%d: can't pchar, stack empty\n", line_number);
 		return (-1);
 	}
+	return (0);
+}
+
+/**
+ * pstr_func - prints ascii equivalent of the top stack data
+ * Till it encounters a non ascii value
+ * @top: global stack variable
+ * @line_number: file line number
+ * Return: 0 if successful else -1
+*/
+
+int pstr_func(
+	stack_t **top, __attribute__ ((unused)) unsigned int line_number)
+{
+	stack_t *ptr;
+	int data;
+
+	if (*top != NULL)
+	{
+		ptr = *top;
+		while (ptr != NULL)
+		{
+			data = (*ptr).n;
+			if (!isascii(data) || data == 0)
+			{
+				break;
+			}
+			printf("%c", (char)data);
+			ptr = ptr->next;
+		}
+		printf("\n");
+	}
+	else
+		printf("\n");
 	return (0);
 }

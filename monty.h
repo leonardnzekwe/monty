@@ -61,6 +61,7 @@ int div_func(stack_t **top, unsigned int line_number);
 int mul_func(stack_t **top, unsigned int line_number);
 int mod_func(stack_t **top, unsigned int line_number);
 int pchar_func(stack_t **top, unsigned int line_number);
+int pstr_func(stack_t **top, unsigned int line_number);
 void free_stack(stack_t **top);
 void clean_up(FILE *file_ptr, stack_t **top, char *line);
 int get_num_nodes(stack_t **top);
