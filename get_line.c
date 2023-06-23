@@ -59,7 +59,7 @@ char *opnum, int opint, unsigned int line_number)
 {
 	if (opnum != NULL)
 	{
-		if (!is_valid_number(opnum))
+		if (!is_valid_number(opnum) || atoi(opnum) < 0)
 		{
 			fprintf(stderr, "L%d: usage: push integer\n", line_number);
 			clean_up(file_ptr, top, line);
