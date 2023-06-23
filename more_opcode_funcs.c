@@ -92,11 +92,6 @@ int rotl_func(stack_t **top, unsigned int line_number)
 		if (push_end_func(top, top_value) == -1)
 			return (-1);
 	}
-	else
-	{
-		fprintf(stderr, "L%d: can't rotl, stack empty\n", line_number);
-		return (-1);
-	}
 	return (0);
 }
 
@@ -125,11 +120,6 @@ int rotr_func(stack_t **top, unsigned int line_number)
 			return (-1);
 		if (pop_end_func(top, line_number) == -1)
 			return (-1);
-	}
-	else
-	{
-		fprintf(stderr, "L%d: can't rotr, stack empty\n", line_number);
-		return (-1);
 	}
 	return (0);
 }
