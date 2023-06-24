@@ -29,8 +29,9 @@ void get_line(FILE *file_ptr)
 			opnum = strtok(NULL, " \t\n"); /* Extract the second str from line */
 			break;
 		}
-		/* opcode is nop, nop does nothing OR line is a comment, #*/
 		if (strcmp(opcode, "nop") == 0 || opcode[0] == '#')
+			continue;
+		if ((strcmp(opcode, "stack") == 0) || (strcmp(opcode, "queue") == 0))
 			continue;
 		if (strcmp(opcode, "push") == 0) /* opcode is push */
 		{
