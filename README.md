@@ -16,12 +16,9 @@ ALX SWE Project on Stacks, Queues & LIFO, FIFO.
 - Print the Evaluted opcodes to Output.
 - Implements a Doubly Linked List Stack & Queue.
 - Implements the LIFO & FIFO.
+- Usage: `monty` `file`. Where `file` is the path to the file containing Monty byte code.
 
-The monty program
-
-- Usage: monty file
-
-## Task Roadmap
+## Task
 
 - [x]  **Task 0:** Implement the push and pall opcodes.
 - [x]  **Task 1:** Implement the pint opcode.
