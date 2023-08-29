@@ -1,6 +1,6 @@
 # C - MONTY
 
-Custom Implementation of Monty ByteCode Interpreter.
+A Custom Implementation of Monty ByteCode Interpreter.
 
 ## Authors
 
