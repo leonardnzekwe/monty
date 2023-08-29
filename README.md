@@ -1,8 +1,6 @@
 # C - MONTY
 
-An interpreter for Monty ByteCodes Files.
-
-ALX SWE Project on Stacks, Queues & LIFO, FIFO.
+Custom Implementation of Monty ByteCode Interpreter.
 
 ## Authors
 
